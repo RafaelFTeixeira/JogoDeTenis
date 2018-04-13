@@ -2,7 +2,7 @@
 {
     public enum Jogador
     {
-        Azul = 0,
-        Vermelho = 1
+        Esquerdo = 0,
+        Direito = 1
     }
 }

@@ -1,9 +1,11 @@
-﻿namespace JogoDeTenis
+﻿using System.Linq;
+
+namespace JogoDeTenis
 {
     public class Jogo
     {
         private int[] Pontuacao { get; }
-        private static int[] Placar => new[] {0, 15, 30, 40};
+        private static string[] Placar => new[] {"0", "15", "30", "40", "advantage" };
 
         public Jogo()
         {
@@ -14,24 +16,36 @@
         {
             foreach (var jogador in jogadas)
                 Pontuacao[(int) jogador]++;
+
+            ValidaSeEhDeuce();
+        }
+
+        private void ValidaSeEhDeuce()
+        {
+            if (Pontuacao[(int) Jogador.Esquerdo] > Placar.Length - 2 && Pontuacao[(int)Jogador.Esquerdo] > Placar.Length - 2)
+            {
+                Pontuacao[(int) Jogador.Esquerdo]--;
+                Pontuacao[(int) Jogador.Direito]--;
+            }
         }
 
         public string ObterPlacar()
         {
-            var pontuacaoDoJogadorAzul = ObterPontuacaoDo(Jogador.Azul);
-            var pontuacaoDoJogadorVermelho = ObterPontuacaoDo(Jogador.Vermelho);
+            var indiceDaPontuacaoDoJogadorEsquerdo = ObterIndiceDaPontuacaoDo(Jogador.Esquerdo);
+            var indiceDaPontuacaoDoJogadorDireito = ObterIndiceDaPontuacaoDo(Jogador.Direito);
 
-            if (EhDeuce(pontuacaoDoJogadorAzul, pontuacaoDoJogadorVermelho))
+            if (EhDeuce(indiceDaPontuacaoDoJogadorEsquerdo, indiceDaPontuacaoDoJogadorDireito))
                 return "deuce";
-            return $"{Placar[pontuacaoDoJogadorAzul]} {Placar[pontuacaoDoJogadorVermelho]}";
+            return $"{Placar[indiceDaPontuacaoDoJogadorEsquerdo]} {Placar[indiceDaPontuacaoDoJogadorDireito]}";
         }
 
-        private int ObterPontuacaoDo(Jogador jogador) => Pontuacao[(int) jogador];
+        private int ObterIndiceDaPontuacaoDo(Jogador jogador) => Pontuacao[(int) jogador];
 
-        private static bool EhDeuce(int pontuacaoDoJogadorAzul, int pontuacaoDoJogadorVermelho)
+        private static bool EhDeuce(int indiceDaPontuacaoDoJogadorEsquerdo, int indiceDaPontuacaoDoJogadorDireito)
         {
-            var indiceDaPontuacaoMaxima = Placar.Length - 1;
-            return pontuacaoDoJogadorAzul == pontuacaoDoJogadorVermelho && pontuacaoDoJogadorAzul == indiceDaPontuacaoMaxima;
+            const string pontuacaoDeDeuce = "40";
+            var indiceDaPontuacaoDoDeuce = Placar.Select((value, index) => new { value, index }).First(pontuacao => pontuacao.value == pontuacaoDeDeuce);
+            return indiceDaPontuacaoDoJogadorEsquerdo == indiceDaPontuacaoDoJogadorDireito && indiceDaPontuacaoDoJogadorEsquerdo == indiceDaPontuacaoDoDeuce.index;
         }
     }
 }
