@@ -5,7 +5,10 @@ namespace JogoDeTenis
     public class Jogo
     {
         private int[] Pontuacao { get; }
-        private static string[] PlacarDoJogo => new[] { "0", "15", "30", "40", "advantage", "win" };
+        private const string Deuce = "40";
+        private const string Advantage = "advantage";
+        private const string Win = "win";
+        private static string[] PlacarDoJogo => new[] { "0", "15", "30", Deuce, Advantage, Win };
 
         public Jogo()
         {
@@ -17,22 +20,22 @@ namespace JogoDeTenis
             foreach (var jogador in jogadas)
                     Pontuacao[(int) jogador]++;
 
-            RetormarParaDeuceSeOsJogadoresTiveremComoAdvantage();
+            RetormarParaDeuceQuandoOsJogadoresSeIgualarComoAdvantage();
         }
 
-        private void RetormarParaDeuceSeOsJogadoresTiveremComoAdvantage()
+        private void RetormarParaDeuceQuandoOsJogadoresSeIgualarComoAdvantage()
         {
-            if (EstaComPonutacaoDeAdvantage(Jogador.Esquerdo) && 
-                EstaComPonutacaoDeAdvantage(Jogador.Direito))
+            if (EstaComPontuacaoDeAdvantage(Jogador.Esquerdo) && 
+                EstaComPontuacaoDeAdvantage(Jogador.Direito))
             {
                 Pontuacao[(int)Jogador.Esquerdo]--;
                 Pontuacao[(int)Jogador.Direito]--;
             }
         }
 
-        private bool EstaComPonutacaoDeAdvantage(Jogador jogador)
+        private bool EstaComPontuacaoDeAdvantage(Jogador jogador)
         {
-            var indiceDaPontuacaoDoDeuce = ObterIndiceDaPontuacao("40");
+            var indiceDaPontuacaoDoDeuce = ObterIndiceDaPontuacao(Deuce);
             return Pontuacao[(int)jogador] > indiceDaPontuacaoDoDeuce;
         }
 
@@ -43,26 +46,34 @@ namespace JogoDeTenis
 
             if (EhDeuce(indiceDaPontuacaoDoJogadorEsquerdo, indiceDaPontuacaoDoJogadorDireito))
                 return "deuce";
-            if (indiceDaPontuacaoDoJogadorEsquerdo == ObterIndiceDaPontuacao("advantage") && indiceDaPontuacaoDoJogadorDireito < ObterIndiceDaPontuacao("40") ||
-                indiceDaPontuacaoDoJogadorEsquerdo == ObterIndiceDaPontuacao("win") && indiceDaPontuacaoDoJogadorDireito < ObterIndiceDaPontuacao("advantage"))
+            if (EhVencedor(indiceDaPontuacaoDoJogadorEsquerdo, indiceDaPontuacaoDoJogadorDireito))
                 return "Jogador da esquerda venceu";
-            if (indiceDaPontuacaoDoJogadorDireito == ObterIndiceDaPontuacao("advantage") && indiceDaPontuacaoDoJogadorEsquerdo < ObterIndiceDaPontuacao("40") ||
-                indiceDaPontuacaoDoJogadorDireito == ObterIndiceDaPontuacao("win") && indiceDaPontuacaoDoJogadorEsquerdo < ObterIndiceDaPontuacao("advantage"))
+            if (EhVencedor(indiceDaPontuacaoDoJogadorDireito, indiceDaPontuacaoDoJogadorEsquerdo))
                 return "Jogador da direita venceu";
             return $"{PlacarDoJogo[indiceDaPontuacaoDoJogadorEsquerdo]} {PlacarDoJogo[indiceDaPontuacaoDoJogadorDireito]}";
+        }
+
+        private static bool EhVencedor(int indiceDaPontuacaoDoJogadorVencedor, int indiceDaPontuacaoAdversario)
+        {
+            return indiceDaPontuacaoDoJogadorVencedor == ObterIndiceDaPontuacao(Advantage) &&
+                   indiceDaPontuacaoAdversario < ObterIndiceDaPontuacao(Deuce) ||
+                   indiceDaPontuacaoDoJogadorVencedor == ObterIndiceDaPontuacao(Win) &&
+                   indiceDaPontuacaoAdversario < ObterIndiceDaPontuacao(Advantage);
         }
 
         private int ObterIndiceDaPontuacaoDo(Jogador jogador) => Pontuacao[(int) jogador];
 
         private static bool EhDeuce(int indiceDaPontuacaoDoJogadorEsquerdo, int indiceDaPontuacaoDoJogadorDireito)
         {
-            var indiceDaPontuacaoDoDeuce = ObterIndiceDaPontuacao("40");
-            return indiceDaPontuacaoDoJogadorEsquerdo == indiceDaPontuacaoDoJogadorDireito && indiceDaPontuacaoDoJogadorEsquerdo == indiceDaPontuacaoDoDeuce;
+            var indiceDaPontuacaoDoDeuce = ObterIndiceDaPontuacao(Deuce);
+            return indiceDaPontuacaoDoJogadorEsquerdo == indiceDaPontuacaoDoJogadorDireito &&
+                   indiceDaPontuacaoDoJogadorEsquerdo == indiceDaPontuacaoDoDeuce;
         }
 
         private static int ObterIndiceDaPontuacao(string nomeDaPontuacao)
         {
-            return PlacarDoJogo.Select((value, index) => new { value, index }).First(pontuacao => pontuacao.value == nomeDaPontuacao).index;
+            return PlacarDoJogo.Select((value, index) => new { value, index })
+                .First(pontuacao => pontuacao.value == nomeDaPontuacao).index;
         }
     }
 }
