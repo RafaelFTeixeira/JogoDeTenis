@@ -4,7 +4,7 @@ namespace JogoDeTenis.Teste
 {
     public class JogoTeste
     {
-        private Jogo _jogo;
+        private readonly Jogo _jogo;
         private const Jogador JogadorEsquerdo = Jogador.Esquerdo;
         private const Jogador JogadorDireito = Jogador.Direito;
 
@@ -75,21 +75,20 @@ namespace JogoDeTenis.Teste
             Assert.Equal("deuce", _jogo.ObterPlacar());
         }
 
-        [Fact]
-        public void deve_pontuar_advantage_para_o_jogador_que_realizar_uma_pontuacao_no_placar_deuce()
+        [Theory]
+        [InlineData(new[] { JogadorEsquerdo, JogadorEsquerdo, JogadorEsquerdo,
+            JogadorDireito, JogadorDireito, JogadorDireito, JogadorDireito }, "40 advantage")]
+        [InlineData(new[] { JogadorEsquerdo, JogadorEsquerdo, JogadorEsquerdo, JogadorEsquerdo,
+            JogadorDireito, JogadorDireito, JogadorDireito }, "advantage 40")]
+        public void Deve_pontuar_advantage_para_o_jogador_que_realizar_uma_pontuacao_no_placar_deuce(Jogador[] jogadas, string placarDoJogo)
         {
-            var jogadas = new[] {
-                JogadorEsquerdo, JogadorEsquerdo, JogadorEsquerdo,
-                JogadorDireito, JogadorDireito, JogadorDireito, JogadorDireito
-            };
-
             _jogo.Pontuar(jogadas);
 
-            Assert.Equal("40 advantage", _jogo.ObterPlacar());
+            Assert.Equal(placarDoJogo, _jogo.ObterPlacar());
         }
 
         [Fact]
-        public void deve_voltar_a_ser_deuce_quando_os_dois_jogadores_estiver_com_a_pontuacao_acima_de_quarentena()
+        public void Deve_voltar_a_ser_deuce_quando_os_dois_jogadores_estiver_com_a_pontuacao_acima_de_quarentena()
         {
             var jogadas = new[] {
                 JogadorEsquerdo, JogadorEsquerdo, JogadorEsquerdo, JogadorEsquerdo,
@@ -99,6 +98,34 @@ namespace JogoDeTenis.Teste
             _jogo.Pontuar(jogadas);
 
             Assert.Equal("deuce", _jogo.ObterPlacar());
+        }
+
+        [Theory]
+        [InlineData(new[] { JogadorDireito, JogadorDireito, JogadorDireito, JogadorDireito }, "Jogador da direita venceu")]
+        [InlineData(new[] { JogadorEsquerdo, JogadorEsquerdo, JogadorEsquerdo, JogadorEsquerdo }, "Jogador da esquerda venceu")]
+        public void Deve_ganhar_o_jogo_se_o_jogador_com_40_pontos_pontuar_novamente(Jogador[] jogadas, string placarDoJogo)
+        {
+            _jogo.Pontuar(jogadas);
+
+            Assert.Equal(placarDoJogo, _jogo.ObterPlacar());
+        }
+
+        [Theory]
+        [InlineData(new[]
+        {
+            JogadorEsquerdo, JogadorEsquerdo, JogadorEsquerdo,
+            JogadorDireito, JogadorDireito, JogadorDireito, JogadorDireito, JogadorDireito
+        },"Jogador da direita venceu")]
+        [InlineData(new[]
+        {
+            JogadorDireito, JogadorDireito, JogadorDireito,
+            JogadorEsquerdo, JogadorEsquerdo, JogadorEsquerdo, JogadorEsquerdo, JogadorEsquerdo
+        }, "Jogador da esquerda venceu")]
+        public void Deve_vencer_o_jogador_que_realizar_duas_pontuacoes_seguidas_apos_de_um_deuce(Jogador[] jogadas, string placarDoJogo)
+        {
+            _jogo.Pontuar(jogadas);
+
+            Assert.Equal(placarDoJogo, _jogo.ObterPlacar());
         }
     }
 }
