@@ -11,6 +11,7 @@ namespace DesktopApp
         private readonly Bola _bola;
         public int PausarJogo = 0;
         private readonly Jogo _jogo;
+        public bool EstaPausado => PausarJogo <= 0;
 
         public JogoDeTenisEngine(Size clientSize, Jogo jogo)
         {
@@ -38,7 +39,7 @@ namespace DesktopApp
         public void Atualizar()
         {
             PausarJogo = _bola.Atualizar(_jogadorEsquerda, _jogadorDireita);
-            if (PausarJogo > 0)
+            if (!EstaPausado)
             {
                 switch (PausarJogo)
                 {

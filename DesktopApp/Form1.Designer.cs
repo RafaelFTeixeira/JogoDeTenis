@@ -34,10 +34,12 @@
             // Placar
             // 
             this.Placar.AutoSize = true;
+            this.Placar.BackColor = System.Drawing.Color.Transparent;
             this.Placar.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Placar.Location = new System.Drawing.Point(508, 9);
+            this.Placar.Location = new System.Drawing.Point(296, 9);
             this.Placar.Name = "Placar";
-            this.Placar.Size = new System.Drawing.Size(40, 22);
+            this.Placar.Padding = new System.Windows.Forms.Padding(200, 0, 200, 0);
+            this.Placar.Size = new System.Drawing.Size(440, 22);
             this.Placar.TabIndex = 0;
             this.Placar.Text = "0 0";
             this.Placar.TextAlign = System.Drawing.ContentAlignment.TopCenter;

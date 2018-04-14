@@ -9,6 +9,8 @@ namespace DesktopApp
         private readonly System.Timers.Timer _temporizador;
         private readonly JogoDeTenisEngine _engine;
         private readonly Jogo _jogo;
+        private bool FimDeJogo =>  _jogo.ObterPlacar().Contains("venceu");
+
 
         public JogoDeTenisForm()
         {
@@ -21,25 +23,35 @@ namespace DesktopApp
             _temporizador.Elapsed += OnTimedEvent;
             _temporizador.Enabled = true;
         }
+
         private void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
         {
-            if (_engine.PausarJogo > 0)
+            ReniciarJogada();
+            _engine.Atualizar();
+            PausarJogoPorSegundos(2);
+            Invalidate();
+            if (FimDeJogo)
+                _temporizador.Enabled = false;
+        }
+
+        private void ReniciarJogada()
+        {
+            if (!_engine.EstaPausado)
             {
                 _engine.PausarJogo = 0;
                 _temporizador.Interval = 10;
                 _engine.ResetarBola();
             }
+        }
 
-            _engine.Atualizar();
-
-            if (_engine.PausarJogo > 0)
+        private void PausarJogoPorSegundos(int segundos)
+        {
+            if (!_engine.EstaPausado)
             {
                 _temporizador.Enabled = false;
-                _temporizador.Interval = 2000;
+                _temporizador.Interval = segundos * 1000;
                 _temporizador.Enabled = true;
             }
-
-            this.Invalidate();
         }
 
         private void AtualizarTeclaPressionada(object sender, KeyEventArgs e)
