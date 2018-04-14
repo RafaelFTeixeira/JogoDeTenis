@@ -34,13 +34,13 @@
             // Placar
             // 
             this.Placar.AutoSize = true;
-            this.Placar.Font = new System.Drawing.Font("Consolas", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Placar.Location = new System.Drawing.Point(230, 182);
+            this.Placar.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Placar.Location = new System.Drawing.Point(508, 9);
             this.Placar.Name = "Placar";
-            this.Placar.Size = new System.Drawing.Size(518, 112);
+            this.Placar.Size = new System.Drawing.Size(40, 22);
             this.Placar.TabIndex = 0;
-            this.Placar.Text = "Esquerda vs Direita\r\n       0 - 0";
-            this.Placar.Visible = false;
+            this.Placar.Text = "0 0";
+            this.Placar.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // JogoDeTenisForm
             // 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using JogoDeTenis;
 
 namespace DesktopApp
 {
@@ -7,10 +8,13 @@ namespace DesktopApp
     {
         private readonly System.Timers.Timer _temporizador;
         private readonly JogoDeTenisEngine _engine;
+        private readonly Jogo _jogo;
+
         public JogoDeTenisForm()
         {
             InitializeComponent();
-            _engine = new JogoDeTenisEngine(ClientSize);
+            _jogo = new Jogo();
+            _engine = new JogoDeTenisEngine(ClientSize, _jogo);
 
             _temporizador = new System.Timers.Timer { Interval = 10 };
 
@@ -50,9 +54,8 @@ namespace DesktopApp
 
         private void Desenhar(object sender, PaintEventArgs e)
         {
-            _engine.Desenhar(e);
-            Placar.Text = $"Esquerda vs Direita\r\n       {_engine.Player1Score} - {_engine.Player2Score}";
-            Placar.Visible = (_engine.PausarJogo > 0);
+            _engine.InserirCores(e);
+            Placar.Text = _jogo.ObterPlacar();
         }
     }
 }

@@ -3,10 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JogoDeTenis", "JogoDeTenis\JogoDeTenis.csproj", "{CD91DFD5-19C8-4F16-A9BE-E273E781A1F3}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JogoDeTenis.Teste", "JogoDeTenis.Teste\JogoDeTenis.Teste.csproj", "{8AE77BE6-E473-45C4-B1CD-AD708947AB82}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EC9420DD-7718-4464-A07B-EB9F430E6C59}"
 	ProjectSection(SolutionItems) = preProject
 		Regras.txt = Regras.txt
@@ -14,27 +10,39 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopApp", "DesktopApp\DesktopApp.csproj", "{0A651400-C955-4F2B-B95D-628C2F5CDFBD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dominio", "Dominio", "{544CCDC3-85CD-4157-8BA5-58809B86140E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JogoDeTenis", "Dominio\JogoDeTenis\JogoDeTenis.csproj", "{05BAFBA8-7BFF-4655-8511-DA8EDF559D87}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testes", "Testes", "{12FB5F61-1E21-49EC-B492-CE9E149040D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JogoDeTenis.TesteDeUnidade", "JogoDeTenis.TesteDeUnidade\JogoDeTenis.TesteDeUnidade.csproj", "{5E50D0B8-0E67-41F4-993F-0AB569C0E597}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CD91DFD5-19C8-4F16-A9BE-E273E781A1F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CD91DFD5-19C8-4F16-A9BE-E273E781A1F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CD91DFD5-19C8-4F16-A9BE-E273E781A1F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CD91DFD5-19C8-4F16-A9BE-E273E781A1F3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8AE77BE6-E473-45C4-B1CD-AD708947AB82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8AE77BE6-E473-45C4-B1CD-AD708947AB82}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8AE77BE6-E473-45C4-B1CD-AD708947AB82}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8AE77BE6-E473-45C4-B1CD-AD708947AB82}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0A651400-C955-4F2B-B95D-628C2F5CDFBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0A651400-C955-4F2B-B95D-628C2F5CDFBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A651400-C955-4F2B-B95D-628C2F5CDFBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A651400-C955-4F2B-B95D-628C2F5CDFBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05BAFBA8-7BFF-4655-8511-DA8EDF559D87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05BAFBA8-7BFF-4655-8511-DA8EDF559D87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05BAFBA8-7BFF-4655-8511-DA8EDF559D87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05BAFBA8-7BFF-4655-8511-DA8EDF559D87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E50D0B8-0E67-41F4-993F-0AB569C0E597}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E50D0B8-0E67-41F4-993F-0AB569C0E597}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E50D0B8-0E67-41F4-993F-0AB569C0E597}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E50D0B8-0E67-41F4-993F-0AB569C0E597}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{05BAFBA8-7BFF-4655-8511-DA8EDF559D87} = {544CCDC3-85CD-4157-8BA5-58809B86140E}
+		{5E50D0B8-0E67-41F4-993F-0AB569C0E597} = {12FB5F61-1E21-49EC-B492-CE9E149040D7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9F4E5145-E2AE-4EC5-8A8C-DF90272949C2}

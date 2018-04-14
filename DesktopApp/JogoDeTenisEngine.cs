@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
+using JogoDeTenis;
 
 namespace DesktopApp
 {
@@ -8,12 +9,12 @@ namespace DesktopApp
         private readonly Jogador _jogadorEsquerda;
         private readonly Jogador _jogadorDireita;
         private readonly Bola _bola;
-        public int Player1Score = 0;
-        public int Player2Score = 0;
         public int PausarJogo = 0;
+        private readonly Jogo _jogo;
 
-        public JogoDeTenisEngine(Size clientSize)
+        public JogoDeTenisEngine(Size clientSize, Jogo jogo)
         {
+            _jogo = jogo;
             const int espacoForaDaParede = 100;
             var tamanhoDoJogador = new Size(20, 100);
             var tamanhoDaBola = new Size(20, 20);
@@ -39,14 +40,16 @@ namespace DesktopApp
             PausarJogo = _bola.Atualizar(_jogadorEsquerda, _jogadorDireita);
             if (PausarJogo > 0)
             {
-                if (PausarJogo == 1)
+                switch (PausarJogo)
                 {
-                    Player1Score++;
+                    case 1:
+                        _jogo.Pontuar(JogoDeTenis.Jogador.Esquerdo);
+                        break;
+                    case 2:
+                        _jogo.Pontuar(JogoDeTenis.Jogador.Direito);
+                        break;
                 }
-                else if (PausarJogo == 2)
-                {
-                    Player2Score++;
-                }
+
                 return;
             }
             _jogadorEsquerda.Executar(_bola);
@@ -64,7 +67,7 @@ namespace DesktopApp
             _jogadorDireita.AtualizarTecla(e.KeyCode, pressinouParaBaixo);
         }
 
-        public void Desenhar(PaintEventArgs e)
+        public void InserirCores(PaintEventArgs e)
         {
             e.Graphics.FillRectangle(Brushes.DarkRed, _jogadorDireita.Retangulo);
             e.Graphics.FillRectangle(Brushes.DarkBlue, _jogadorEsquerda.Retangulo);

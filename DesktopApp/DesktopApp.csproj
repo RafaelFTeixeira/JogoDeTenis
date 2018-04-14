@@ -81,5 +81,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dominio\JogoDeTenis\JogoDeTenis.csproj">
+      <Project>{05BAFBA8-7BFF-4655-8511-DA8EDF559D87}</Project>
+      <Name>JogoDeTenis</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
